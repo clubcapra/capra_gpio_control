@@ -74,8 +74,10 @@ int main(int argc, char **argv)
     
     ros::Rate rate(ros_spin_rate); // ROS Rate at 100Hz
 
-    ros::spinOnce();
-    rate.sleep();
-    
-    return 0;
+    while(ros::ok())
+    {
+        rate.sleep();
+    }
+
+    return 0; 
 }
