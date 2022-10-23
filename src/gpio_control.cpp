@@ -49,13 +49,14 @@ bool backLightOff(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &
  */
 void initializeGPIO()
 {
+    ROS_INFO("Succesfully initialized gpio's");
     gpioExport(WRIST_LIGHT_PIN);
     gpioSetDirection(WRIST_LIGHT_PIN,outputPin);
-    gpioSetValue(WRIST_LIGHT_PIN, false);
+    gpioSetValue(WRIST_LIGHT_PIN, 1);
 
     gpioExport(BACK_LIGHT_PIN);
     gpioSetDirection(BACK_LIGHT_PIN,outputPin);
-    gpioSetValue(BACK_LIGHT_PIN, false);
+    gpioSetValue(BACK_LIGHT_PIN, 1);
 
 }
 
