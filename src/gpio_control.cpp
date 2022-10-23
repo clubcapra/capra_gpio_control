@@ -1,6 +1,7 @@
 #include "ros/ros.h"
 #include "std_srvs/Trigger.h"
 #include "JetsonXavierGPIO/jetsonGPIO.h"
+#include <ros/console.h>
 
 
 const jetsonXavierGPIONumber WRIST_LIGHT_PIN = jetsonXavierGPIONumber::gpio352;
@@ -50,11 +51,9 @@ bool backLightOff(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &
 void initializeGPIO()
 {
     ROS_INFO("Succesfully initialized gpio's");
-    gpioExport(WRIST_LIGHT_PIN);
     gpioSetDirection(WRIST_LIGHT_PIN,outputPin);
-    gpioSetValue(WRIST_LIGHT_PIN, 1);
+    gpioSetValue(WRIST_LIGHT_PIN, 0);
 
-    gpioExport(BACK_LIGHT_PIN);
     gpioSetDirection(BACK_LIGHT_PIN,outputPin);
     gpioSetValue(BACK_LIGHT_PIN, 1);
 
