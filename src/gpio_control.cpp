@@ -30,7 +30,7 @@ bool wristLightOff(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response 
 
 bool backLightOn(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res)
 {
-    res.message = "successfully turned wrist_light on";
+    res.message = "successfully turned back_light on";
     gpioSetValue(BACK_LIGHT_PIN, 1);
     res.success = static_cast<unsigned char>(true);
     return true;
@@ -39,7 +39,7 @@ bool backLightOn(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &r
 
 bool backLightOff(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res)
 {
-    res.message = "successfully turned wrist_light off";
+    res.message = "successfully turned back_light off";
     gpioSetValue(BACK_LIGHT_PIN, 0);
     res.success = static_cast<unsigned char>(true);
     return true;
@@ -55,7 +55,7 @@ void initializeGPIO()
     gpioSetValue(WRIST_LIGHT_PIN, 0);
 
     gpioSetDirection(BACK_LIGHT_PIN,outputPin);
-    gpioSetValue(BACK_LIGHT_PIN, 1);
+    gpioSetValue(BACK_LIGHT_PIN, 0);
 
 }
 
@@ -75,7 +75,8 @@ int main(int argc, char **argv)
     ros::Rate rate(ros_spin_rate); // ROS Rate at 100Hz
 
     while(ros::ok())
-    {
+    { 
+        ros::spinOnce();
         rate.sleep();
     }
 
