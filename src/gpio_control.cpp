@@ -1,12 +1,12 @@
 #include "ros/ros.h"
 #include "std_srvs/Trigger.h"
 #include "JetsonXavierGPIO/jetsonGPIO.h"
-#include <ros/console.h>
+
 
 
 const jetsonXavierGPIONumber WRIST_LIGHT_PIN = jetsonXavierGPIONumber::gpio352;
 const jetsonXavierGPIONumber BACK_LIGHT_PIN = jetsonXavierGPIONumber::gpio353;
-const int ros_spin_rate = 100;
+const int ROS_SPIN_RATE= 100;
 bool wrist_light_state=off;
 bool back_light_state=off;
 
@@ -59,13 +59,15 @@ bool back_light_toggle(std_srvs::Trigger::Request &req, std_srvs::Trigger::Respo
  */
 void initializeGPIO()
 {
-    ROS_INFO("Succesfully initialized gpio's");
+    gpioExport(WRIST_LIGHT_PIN);
     gpioSetDirection(WRIST_LIGHT_PIN,outputPin);
     gpioSetValue(WRIST_LIGHT_PIN, off);
 
+    gpioExport(BACK_LIGHT_PIN);
     gpioSetDirection(BACK_LIGHT_PIN,outputPin);
     gpioSetValue(BACK_LIGHT_PIN, off);
 
+    ROS_INFO("Succesfully initialized gpio's");
 }
 
 int main(int argc, char **argv)
@@ -79,7 +81,7 @@ int main(int argc, char **argv)
 
     ros::ServiceServer backLightEnable = nh.advertiseService("back_light_toggle", back_light_toggle);
     
-    ros::Rate rate(ros_spin_rate); // ROS Rate at 100Hz
+    ros::Rate rate(ROS_SPIN_RATE); // ROS Rate at 100Hz
 
     while(ros::ok())
     { 
