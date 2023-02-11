@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="capra_gpio_control" type="gpio_control" name="gpio_control" ns="capra" output="screen"></node>
+</launch>
